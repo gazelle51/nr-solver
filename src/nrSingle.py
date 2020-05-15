@@ -1,22 +1,21 @@
 # NR Method
 def newtonRaphsonSingleVariable(x, f, dfdx, eps=0.0001):
     # Initialisation
-    delta = f(x) / dfdx(x)
     i = 0
+
+    def delta():
+        return f(x) / dfdx(x)
 
     print("Starting Newton Raphson Method for a single variable")
     print("\nIteration |       x (7dp)")
     print("==========================")
 
     # Start looping
-    while abs(delta) >= eps:
+    while abs(delta()) >= eps:
         print("    {:5d} | {: 13.7f}".format(i, x))
 
-        # Calculote delta
-        delta = f(x) / dfdx(x)
-
         # Apply update to the root
-        x = x - delta
+        x = x - delta()
 
         # Increment counter
         i = i + 1
