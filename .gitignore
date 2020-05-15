@@ -1,4 +1,5 @@
-.vscode/
-env/
+.vscode
+env
 .DS_Store
-ref/
+ref
+__pycache__
