@@ -1,6 +1,7 @@
-import math
 import src.nrSingle as nrSingle
 import src.nrMultiple as nrMultiple
+
+# import tkinter as tk
 
 # NR Single
 nrSingle.newtonRaphsonSingleVariable("15*((x-4)/7) + (sin(5*x))**3", "x", 2)
