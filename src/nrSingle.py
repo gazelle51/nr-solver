@@ -1,13 +1,13 @@
 import sympy as sym
 
 
-def newtonRaphsonSingleVariable(f, fSymbol, initVal, eps=0.0001):
+def newtonRaphsonSingleVariable(f, symbol, initVal, eps=0.0001):
     """Use the Newton Raphson method to find the solution to a function with
     a single variable.
     
     Args:
         f (str): the function to find the solution of
-        fSymbol (str): symbol for the unknown variable in the funcrion
+        symbol (str): symbol for the unknown variable in the function
         initVal (float): initial guess for the solution
         eps (float): epsilon threshold value (default is 0.0001)
 
@@ -18,7 +18,7 @@ def newtonRaphsonSingleVariable(f, fSymbol, initVal, eps=0.0001):
     # Initialisation
     i = 0  # Counter
     xVal = initVal  # Initial guess for x
-    xSym = sym.symbols(fSymbol)  # Symbol used for x
+    xSym = sym.symbols(symbol)  # Symbol used for x
     f = sym.sympify(f)  # Convert function to sympy
     dfdx = sym.diff(f, xSym)  # Function derivative
 
@@ -27,7 +27,7 @@ def newtonRaphsonSingleVariable(f, fSymbol, initVal, eps=0.0001):
         return -f.subs(xSym, xVal).evalf() / dfdx.subs(xSym, xVal).evalf()
 
     print("\nStarting Newton Raphson Method for a single variable")
-    print("\nIteration |       {} (7dp)".format(fSymbol))
+    print("\nIteration |       {} (7dp)".format(symbol))
     print("==========================")
 
     # Start looping
@@ -43,7 +43,7 @@ def newtonRaphsonSingleVariable(f, fSymbol, initVal, eps=0.0001):
     print("    {:5d} | {: 13.7f}".format(i, xVal))
     print(
         "\nThe solution is {}={:.4f} after {} iterations".format(
-            fSymbol, xVal, i
+            symbol, xVal, i
         )
     )
 

@@ -1,19 +1,20 @@
 import numpy as np
+import sympy as sym
 
 
-def newtonRaphsonTwoVariables(x, y, f, g, dfdx, dfdy, dgdx, dgdy, eps=0.0001):
+def newtonRaphsonTwoVariables(
+    f, g, symbol1, symbol2, initVal1, initVal2, eps=0.0001
+):
     """Use the Newton Raphson method to find the solution to two simultaneous 
     equations with two variables.
     
     Args:
-        x (float): initial guess for the x value of the solution
-        y (float): initial guess for the y value of the solution
-        f (function): the first function to find the solution of
-        g (function): the second function to find the solution of
-        dfdx (function): the derivative of the first function wrt x
-        dfdy (function): the derivative of the first function wrt y
-        dgdx (function): the derivative of the second function wrt x
-        dgdy (function): the derivative of the second function wrt y
+        f (str): the first function to find the solution of
+        g (str): the second function to find the solution of
+        symbol1 (str): symbol for the first unknown variable in the function
+        symbol2 (str): symbol for the second unknown variable in the function
+        initVal1 (float): initial guess for the x value of the solution
+        initVal12 (float): initial guess for the y value of the solution
         eps (float): epsilon threshold value (default is 0.0001)
 
     Returns:
@@ -21,47 +22,78 @@ def newtonRaphsonTwoVariables(x, y, f, g, dfdx, dfdy, dgdx, dgdy, eps=0.0001):
     """
 
     # Initialisation
-    i = 0
-    xy = np.array([[x, y]]).T
+    i = 0  # Counter
+    xyVal = np.array([[initVal1, initVal2]]).T  # Initial guesses for x and y
+    xSym, ySym = sym.symbols([symbol1, symbol2])  # Symbols used for x and y
+    f = sym.sympify(f)  # Convert function f to sympy
+    g = sym.sympify(g)  # Convert function g to sympy
+    dfdx = sym.diff(f, xSym)  # Derivative of f wrt x
+    dfdy = sym.diff(f, ySym)  # Derivative of f wrt y
+    dgdx = sym.diff(g, xSym)  # Derivative of g wrt x
+    dgdy = sym.diff(g, ySym)  # Derivative of g wrt y
 
-    def J():
-        """Calculate and return the Jacobian matrix."""
+    def J(x, y):
+        """Calculate and return the Jacobian matrix at a point."""
 
         return np.array(
             [
-                [dfdx(xy[0][0], xy[1][0]), dfdy(xy[0][0], xy[1][0])],
-                [dgdx(xy[0][0], xy[1][0]), dgdy(xy[0][0], xy[1][0])],
-            ]
+                [
+                    dfdx.subs([(xSym, x), (ySym, y)]).evalf(),
+                    dfdy.subs([(xSym, x), (ySym, y)]).evalf(),
+                ],
+                [
+                    dgdx.subs([(xSym, x), (ySym, y)]).evalf(),
+                    dgdy.subs([(xSym, x), (ySym, y)]).evalf(),
+                ],
+            ],
+            dtype="float",
         )
 
     def delta():
         """Calculate and return the correction vector."""
 
+        x = xyVal[0][0]
+        y = xyVal[1][0]
+
         return np.matmul(
-            -np.linalg.inv(J()),
-            np.array([[f(xy[0][0], xy[1][0])], [g(xy[0][0], xy[1][0])]]),
+            -np.linalg.inv(J(x, y)),
+            np.array(
+                [
+                    [f.subs([(xSym, x), (ySym, y)]).evalf()],
+                    [g.subs([(xSym, x), (ySym, y)]).evalf()],
+                ]
+            ),
         )
 
     print("\nStarting Newton Raphson Method for multiple variables")
-    print("\nIteration |       x (7dp) |       y (7dp)")
+    print(
+        "\nIteration |       {} (7dp) |       {} (7dp)".format(
+            symbol1, symbol2
+        )
+    )
     print("==========================================")
 
     # Start looping
     while (np.abs(delta()) >= eps).any():
         print(
-            "    {:5d} | {: 13.7f} | {: 13.7f}".format(i, xy[0][0], xy[1][0])
+            "    {:5d} | {: 13.7f} | {: 13.7f}".format(
+                i, xyVal[0][0], xyVal[1][0]
+            )
         )
 
         # Apply correction to the solution
-        xy = xy + delta()
+        xyVal = xyVal + delta()
 
         # Increment counter
         i = i + 1
 
-    print("    {:5d} | {: 13.7f} | {: 13.7f}".format(i, xy[0][0], xy[1][0]))
     print(
-        "\nThe solution is x=%.4f y=%.4f after %d iterations"
-        % (xy[0][0], xy[1][0], i)
+        "    {:5d} | {: 13.7f} | {: 13.7f}".format(i, xyVal[0][0], xyVal[1][0])
+    )
+    print(
+        "\nThe solution is {}={:.4f} {}={:.4f} after {} iterations".format(
+            symbol1, xyVal[0][0], symbol2, xyVal[1][0], i
+        )
     )
 
-    return x
+    return xyVal
