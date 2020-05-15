@@ -43,6 +43,6 @@ def df3dy(x, y):
     return 10 * x * math.sin(y)
 
 
-nrMultiple.newtonRaphsonMultiVariable(
+nrMultiple.newtonRaphsonTwoVariables(
     1, 0, f2, f3, df2dx, df2dy, df3dx, df3dy, 0.001
 )

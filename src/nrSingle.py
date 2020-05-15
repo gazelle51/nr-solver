@@ -1,13 +1,25 @@
-# NR Method
 def newtonRaphsonSingleVariable(x, f, dfdx, eps=0.0001):
+    """Use the Newton Raphson method to find the solution to a function with
+    a single variable.
+    
+    Args:
+        x (float): initial guess for the solution
+        f (function): the function to find the solution of
+        dfdx (function): the derivative of the function
+        eps (float): epsilon threshold value (default is 0.0001)
+
+    Returns:
+        float: Solution to the function
+    """
+
     # Initialisation
     i = 0
 
-    # Delta function, outputs correction amount
     def delta():
+        """Calculate and return the correction amount."""
         return -f(x) / dfdx(x)
 
-    print("Starting Newton Raphson Method for a single variable")
+    print("\nStarting Newton Raphson Method for a single variable")
     print("\nIteration |       x (7dp)")
     print("==========================")
 
