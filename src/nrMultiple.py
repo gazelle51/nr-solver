@@ -2,17 +2,24 @@ import numpy as np
 
 # NR Method
 def newtonRaphsonMultiVariable(x, y, f, g, dfdx, dfdy, dgdx, dgdy, eps=0.0001):
-    # Jacobian Matrix
-    J = np.array([[dfdx(x, y), dfdy(x, y)], [dgdx(x, y), dgdy(x, y)]])
-
     # Initialisation
     i = 0
-    xy = np.array([[x], [y]])
+    xy = np.array([[x, y]]).T
 
+    # Jacobian Matrix
+    def J():
+        return np.array(
+            [
+                [dfdx(xy[0][0], xy[1][0]), dfdy(xy[0][0], xy[1][0])],
+                [dgdx(xy[0][0], xy[1][0]), dgdy(xy[0][0], xy[1][0])],
+            ]
+        )
+
+    # Delta function, outputs correction vector
     def delta():
         return np.matmul(
-            -np.linalg.inv(J),
-            [[f(xy[0][0], xy[1][0])], [g(xy[0][0], xy[1][0])]],
+            -np.linalg.inv(J()),
+            np.array([[f(xy[0][0], xy[1][0])], [g(xy[0][0], xy[1][0])]]),
         )
 
     print("Starting Newton Raphson Method for multiple variables")
@@ -25,7 +32,7 @@ def newtonRaphsonMultiVariable(x, y, f, g, dfdx, dfdy, dgdx, dgdy, eps=0.0001):
             "    {:5d} | {: 13.7f} | {: 13.7f}".format(i, xy[0][0], xy[1][0])
         )
 
-        # Apply update to the root
+        # Apply correction to the solution
         xy = xy + delta()
 
         # Increment counter

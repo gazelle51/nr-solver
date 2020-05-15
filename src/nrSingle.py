@@ -3,8 +3,9 @@ def newtonRaphsonSingleVariable(x, f, dfdx, eps=0.0001):
     # Initialisation
     i = 0
 
+    # Delta function, outputs correction amount
     def delta():
-        return f(x) / dfdx(x)
+        return -f(x) / dfdx(x)
 
     print("Starting Newton Raphson Method for a single variable")
     print("\nIteration |       x (7dp)")
@@ -14,8 +15,8 @@ def newtonRaphsonSingleVariable(x, f, dfdx, eps=0.0001):
     while abs(delta()) >= eps:
         print("    {:5d} | {: 13.7f}".format(i, x))
 
-        # Apply update to the root
-        x = x - delta()
+        # Apply correction to the solution
+        x = x + delta()
 
         # Increment counter
         i = i + 1
