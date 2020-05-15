@@ -1,11 +1,14 @@
-def newtonRaphsonSingleVariable(x, f, dfdx, eps=0.0001):
+import sympy as sym
+
+
+def newtonRaphsonSingleVariable(f, fSymbol, initVal, eps=0.0001):
     """Use the Newton Raphson method to find the solution to a function with
     a single variable.
     
     Args:
-        x (float): initial guess for the solution
-        f (function): the function to find the solution of
-        dfdx (function): the derivative of the function
+        f (str): the function to find the solution of
+        fSymbol (str): symbol for the unknown variable in the funcrion
+        initVal (float): initial guess for the solution
         eps (float): epsilon threshold value (default is 0.0001)
 
     Returns:
@@ -13,27 +16,35 @@ def newtonRaphsonSingleVariable(x, f, dfdx, eps=0.0001):
     """
 
     # Initialisation
-    i = 0
+    i = 0  # Counter
+    xVal = initVal  # Initial guess for x
+    xSym = sym.symbols(fSymbol)  # Symbol used for x
+    f = sym.sympify(f)  # Convert function to sympy
+    dfdx = sym.diff(f, xSym)  # Function derivative
 
     def delta():
         """Calculate and return the correction amount."""
-        return -f(x) / dfdx(x)
+        return -f.subs(xSym, xVal).evalf() / dfdx.subs(xSym, xVal).evalf()
 
     print("\nStarting Newton Raphson Method for a single variable")
-    print("\nIteration |       x (7dp)")
+    print("\nIteration |       {} (7dp)".format(fSymbol))
     print("==========================")
 
     # Start looping
     while abs(delta()) >= eps:
-        print("    {:5d} | {: 13.7f}".format(i, x))
+        print("    {:5d} | {: 13.7f}".format(i, xVal))
 
         # Apply correction to the solution
-        x = x + delta()
+        xVal = xVal + delta()
 
         # Increment counter
         i = i + 1
 
-    print("    {:5d} | {: 13.7f}".format(i, x))
-    print("\nThe solution is x=%.4f after %d iterations" % (x, i))
+    print("    {:5d} | {: 13.7f}".format(i, xVal))
+    print(
+        "\nThe solution is {}={:.4f} after {} iterations".format(
+            fSymbol, xVal, i
+        )
+    )
 
-    return x
+    return xVal
