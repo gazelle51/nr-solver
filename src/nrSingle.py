@@ -1,7 +1,7 @@
 # NR Method
-def newtonRaphsonSingleVariable(x, f, df, eps=0.0001):
+def newtonRaphsonSingleVariable(x, f, dfdx, eps=0.0001):
     # Initialisation
-    delta = f(x) / df(x)
+    delta = f(x) / dfdx(x)
     i = 0
 
     print("Starting Newton Raphson Method for a single variable")
@@ -13,7 +13,7 @@ def newtonRaphsonSingleVariable(x, f, df, eps=0.0001):
         print("    {:5d} | {: 13.7f}".format(i, x))
 
         # Calculote delta
-        delta = f(x) / df(x)
+        delta = f(x) / dfdx(x)
 
         # Apply update to the root
         x = x - delta
@@ -22,6 +22,6 @@ def newtonRaphsonSingleVariable(x, f, df, eps=0.0001):
         i = i + 1
 
     print("    {:5d} | {: 13.7f}".format(i, x))
-    print("\nThe value of the root is %.4f after %d iterations" % (x, i))
+    print("\nThe solution is x=%.4f after %d iterations" % (x, i))
 
     return x
