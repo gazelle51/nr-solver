@@ -15,14 +15,14 @@ class MyApp:
         self.footer()
 
     def header(self):
-        self.title = tk.Label(
+        tk.Label(
             self.root,
             text="Newton Raphson Method Solver",
             font=("Helvetica", 20, "bold"),
         ).grid(row=0, pady=10)
 
     def nrSingle(self):
-        self.singleTitle = tk.Label(
+        singleTitle = tk.Label(
             self.root,
             text="Single Variable Method",
             font=("Helvetica", 15, "bold"),
@@ -32,30 +32,35 @@ class MyApp:
         tk.Label(self.root, text="Variable").grid(row=3)
         tk.Label(self.root, text="Initial guess").grid(row=4)
 
-        self.equation = tk.Entry(self.root)
-        self.equation.insert(0, "15*((x-4)/7) + (sin(5*x))**3")
-        self.equation.grid(row=2, column=1)
-        self.variable = tk.Entry(self.root)
-        self.variable.insert(0, "x")
-        self.variable.grid(row=3, column=1)
-        self.initGuess = tk.Entry(self.root)
-        self.initGuess.insert(0, 2)
-        self.initGuess.grid(row=4, column=1)
+        self.eqSingle = tk.Entry(self.root)
+        self.eqSingle.insert(0, "15*((x-4)/7) + (sin(5*x))**3")
+        self.eqSingle.grid(row=2, column=1)
+        self.varSingle = tk.Entry(self.root)
+        self.varSingle.insert(0, "x")
+        self.varSingle.grid(row=3, column=1)
+        self.initGuessSingle = tk.Entry(self.root)
+        self.initGuessSingle.insert(0, 2)
+        self.initGuessSingle.grid(row=4, column=1)
 
-        self.buttonSingle = tk.Button(
+        tk.Button(
             self.root, text="GO", fg="red", command=self.runNrSingle
         ).grid(row=5)
 
     def footer(self):
-        self.buttonQuit = tk.Button(
-            self.root, text="QUIT", fg="red", command=quit
-        ).grid(row=6)
+        tk.Button(self.root, text="QUIT", fg="red", command=quit).grid(row=6)
 
     def runNrSingle(self):
         nrSingle.newtonRaphsonSingleVariable(
-            self.equation.get(),
-            self.variable.get(),
-            float(self.initGuess.get()),
+            self.eqSingle.get(),
+            self.varSingle.get(),
+            float(self.initGuessSingle.get()),
+        )
+
+    def runNrTwo(self):
+        nrTwo.newtonRaphsonTwoVariables(
+            self.eqSingle.get(),
+            self.varSingle.get(),
+            float(self.initGuessSingle.get()),
         )
 
 
