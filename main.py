@@ -121,7 +121,20 @@ class MyApp:
         return frame
 
     def runNrSingle(self):
-        # TODO: add epsilon
+        singleWindow = tk.Toplevel(self.root)
+
+        output = tk.Frame(singleWindow)
+        output.grid(row=0)
+        tk.Label(
+            output, text="Starting Newton Raphson Method for a single variable"
+        ).grid()
+
+        close = tk.Frame(singleWindow)
+        close.grid(row=1)
+        tk.Button(
+            close, text="CLOSE", fg="black", command=singleWindow.destroy
+        ).grid()
+
         nrSingle.newtonRaphsonSingleVariable(
             self.eqSingle.get(),
             self.varSingle.get(),
