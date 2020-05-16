@@ -6,23 +6,23 @@ import tkinter as tk
 
 class MyApp:
     def __init__(self):
+        self.TITLE = "Newton Raphson Method Solver"
 
         self.root = tk.Tk()
-        # self.root.geometry("500x900")  # Width x Height
+        self.root.title(self.TITLE)
+        self.root.iconphoto(False, tk.PhotoImage(file="./src/icon.png"))
 
-        self.header().grid(row=0)
-        self.nrSingle().grid(row=1)
-        self.nrTwo().grid(row=2)
-        self.footer().grid(row=3)
+        self.header().grid(row=0, padx=10)
+        self.nrSingle().grid(row=1, padx=10, pady=5)
+        self.nrTwo().grid(row=2, padx=10, pady=5)
+        self.footer().grid(row=3, padx=10, pady=5)
 
     def header(self):
         frame = tk.Frame(self.root)
 
-        tk.Label(
-            frame,
-            text="Newton Raphson Method Solver",
-            font=("Helvetica", 20, "bold"),
-        ).grid(row=0, pady=10)
+        tk.Label(frame, text=self.TITLE, font=("Helvetica", 20, "bold"),).grid(
+            row=0, pady=10
+        )
 
         return frame
 
@@ -35,10 +35,10 @@ class MyApp:
             font=("Helvetica", 15, "bold"),
         ).grid(row=0, columnspan=2)
 
-        tk.Label(frame, text="Equation").grid(row=1)
-        tk.Label(frame, text="Variable").grid(row=2)
-        tk.Label(frame, text="Initial guess").grid(row=3)
-        tk.Label(frame, text="\u03B5").grid(row=4)
+        tk.Label(frame, text="Equation").grid(row=1, sticky=tk.E)
+        tk.Label(frame, text="Variable").grid(row=2, sticky=tk.E)
+        tk.Label(frame, text="Initial guess").grid(row=3, sticky=tk.E)
+        tk.Label(frame, text="\u03B5").grid(row=4, sticky=tk.E)
 
         self.eqSingle = tk.Entry(frame)
         self.eqSingle.insert(0, "15*((x-4)/7) + (sin(5*x))**3")
@@ -56,8 +56,8 @@ class MyApp:
         self.epsSingle.insert(0, 0.001)
         self.epsSingle.grid(row=4, column=1)
 
-        tk.Button(frame, text="GO", fg="red", command=self.runNrSingle).grid(
-            row=5, columnspan=2
+        tk.Button(frame, text="GO", fg="black", command=self.runNrSingle).grid(
+            row=5, column=1, sticky=tk.W
         )
 
         return frame
@@ -69,13 +69,15 @@ class MyApp:
             frame, text="Two Variable Method", font=("Helvetica", 15, "bold"),
         ).grid(row=0, columnspan=2)
 
-        tk.Label(frame, text="Equation 1").grid(row=1)
-        tk.Label(frame, text="Equation 2").grid(row=2)
-        tk.Label(frame, text="Variable 1").grid(row=3)
-        tk.Label(frame, text="Variable 2").grid(row=4)
-        tk.Label(frame, text="Initial guess for variable 1").grid(row=5)
+        tk.Label(frame, text="Equation 1").grid(row=1, sticky=tk.E)
+        tk.Label(frame, text="Equation 2").grid(row=2, sticky=tk.E)
+        tk.Label(frame, text="Variable 1").grid(row=3, sticky=tk.E)
+        tk.Label(frame, text="Variable 2").grid(row=4, sticky=tk.E)
+        tk.Label(frame, text="Initial guess for variable 1").grid(
+            row=5, sticky=tk.E
+        )
         tk.Label(frame, text="Initial guess for variable 2").grid(row=6)
-        tk.Label(frame, text="\u03B5").grid(row=7)
+        tk.Label(frame, text="\u03B5").grid(row=7, sticky=tk.E)
 
         self.eq1Two = tk.Entry(frame)
         self.eq1Two.insert(0, "10*x*sin(y) + 0.5")
@@ -105,8 +107,8 @@ class MyApp:
         self.epsTwo.insert(0, 0.001)
         self.epsTwo.grid(row=7, column=1)
 
-        tk.Button(frame, text="GO", fg="red", command=self.runNrTwo).grid(
-            row=8, columnspan=2
+        tk.Button(frame, text="GO", fg="black", command=self.runNrTwo,).grid(
+            row=8, column=1, sticky=tk.W
         )
 
         return frame
@@ -114,7 +116,7 @@ class MyApp:
     def footer(self):
         frame = tk.Frame(self.root)
 
-        tk.Button(frame, text="QUIT", fg="red", command=quit).grid(row=16)
+        tk.Button(frame, text="QUIT", fg="black", command=quit).grid(row=16)
 
         return frame
 
@@ -142,9 +144,3 @@ class MyApp:
 
 app = MyApp()
 app.root.mainloop()
-
-
-# # NR Multiple
-# nrTwo.newtonRaphsonTwoVariables(
-#     "10*x*sin(y) + 0.5", "10*x**2 - 10*x*cos(y) + 0.2", "x", "y", 1, 0, 0.001
-# )
