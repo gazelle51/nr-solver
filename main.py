@@ -1,5 +1,5 @@
 import src.nrSingle as nrSingle
-import src.nrMultiple as nrMultiple
+import src.nrTwo as nrTwo
 
 import tkinter as tk
 
@@ -10,12 +10,18 @@ class MyApp:
         self.root = tk.Tk()
         # self.root.geometry("500x900")  # Width x Height
 
+        self.header()
+        self.nrSingle()
+        self.footer()
+
+    def header(self):
         self.title = tk.Label(
             self.root,
             text="Newton Raphson Method Solver",
             font=("Helvetica", 20, "bold"),
         ).grid(row=0, pady=10)
 
+    def nrSingle(self):
         self.singleTitle = tk.Label(
             self.root,
             text="Single Variable Method",
@@ -40,6 +46,7 @@ class MyApp:
             self.root, text="GO", fg="red", command=self.runNrSingle
         ).grid(row=5)
 
+    def footer(self):
         self.buttonQuit = tk.Button(
             self.root, text="QUIT", fg="red", command=quit
         ).grid(row=6)
@@ -57,6 +64,6 @@ app.root.mainloop()
 
 
 # # NR Multiple
-# nrMultiple.newtonRaphsonTwoVariables(
+# nrTwo.newtonRaphsonTwoVariables(
 #     "10*x*sin(y) + 0.5", "10*x**2 - 10*x*cos(y) + 0.2", "x", "y", 1, 0, 0.001
 # )
