@@ -10,99 +10,113 @@ class MyApp:
         self.root = tk.Tk()
         # self.root.geometry("500x900")  # Width x Height
 
-        self.header()
-        self.nrSingle()
-        self.nrTwo()
-        self.footer()
+        self.header().grid(row=0)
+        self.nrSingle().grid(row=1)
+        self.nrTwo().grid(row=2)
+        self.footer().grid(row=3)
 
     def header(self):
+        frame = tk.Frame(self.root)
+
         tk.Label(
-            self.root,
+            frame,
             text="Newton Raphson Method Solver",
             font=("Helvetica", 20, "bold"),
         ).grid(row=0, pady=10)
 
+        return frame
+
     def nrSingle(self):
+        frame = tk.Frame(self.root)
+
         tk.Label(
-            self.root,
+            frame,
             text="Single Variable Method",
             font=("Helvetica", 15, "bold"),
-        ).grid(row=1)
+        ).grid(row=0, columnspan=2)
 
-        tk.Label(self.root, text="Equation").grid(row=2)
-        tk.Label(self.root, text="Variable").grid(row=3)
-        tk.Label(self.root, text="Initial guess").grid(row=4)
-        tk.Label(self.root, text="\u03B5").grid(row=5)
+        tk.Label(frame, text="Equation").grid(row=1)
+        tk.Label(frame, text="Variable").grid(row=2)
+        tk.Label(frame, text="Initial guess").grid(row=3)
+        tk.Label(frame, text="\u03B5").grid(row=4)
 
-        self.eqSingle = tk.Entry(self.root)
+        self.eqSingle = tk.Entry(frame)
         self.eqSingle.insert(0, "15*((x-4)/7) + (sin(5*x))**3")
-        self.eqSingle.grid(row=2, column=1)
+        self.eqSingle.grid(row=1, column=1)
 
-        self.varSingle = tk.Entry(self.root)
+        self.varSingle = tk.Entry(frame)
         self.varSingle.insert(0, "x")
-        self.varSingle.grid(row=3, column=1)
+        self.varSingle.grid(row=2, column=1)
 
-        self.initGuessSingle = tk.Entry(self.root)
+        self.initGuessSingle = tk.Entry(frame)
         self.initGuessSingle.insert(0, 2)
-        self.initGuessSingle.grid(row=4, column=1)
+        self.initGuessSingle.grid(row=3, column=1)
 
-        self.epsSingle = tk.Entry(self.root)
+        self.epsSingle = tk.Entry(frame)
         self.epsSingle.insert(0, 0.001)
-        self.epsSingle.grid(row=5, column=1)
+        self.epsSingle.grid(row=4, column=1)
 
-        tk.Button(
-            self.root, text="GO", fg="red", command=self.runNrSingle
-        ).grid(row=6)
-
-    def nrTwo(self):
-        tk.Label(
-            self.root,
-            text="Two Variable Method",
-            font=("Helvetica", 15, "bold"),
-        ).grid(row=7)
-
-        tk.Label(self.root, text="Equation 1").grid(row=8)
-        tk.Label(self.root, text="Equation 2").grid(row=9)
-        tk.Label(self.root, text="Variable 1").grid(row=10)
-        tk.Label(self.root, text="Variable 2").grid(row=11)
-        tk.Label(self.root, text="Initial guess for variable 1").grid(row=12)
-        tk.Label(self.root, text="Initial guess for variable 2").grid(row=13)
-        tk.Label(self.root, text="\u03B5").grid(row=14)
-
-        self.eq1Two = tk.Entry(self.root)
-        self.eq1Two.insert(0, "10*x*sin(y) + 0.5")
-        self.eq1Two.grid(row=8, column=1)
-
-        self.eq2Two = tk.Entry(self.root)
-        self.eq2Two.insert(0, "10*x**2 - 10*x*cos(y) + 0.2")
-        self.eq2Two.grid(row=9, column=1)
-
-        self.var1Two = tk.Entry(self.root)
-        self.var1Two.insert(0, "x")
-        self.var1Two.grid(row=10, column=1)
-
-        self.var2Two = tk.Entry(self.root)
-        self.var2Two.insert(0, "y")
-        self.var2Two.grid(row=11, column=1)
-
-        self.initGuess1Two = tk.Entry(self.root)
-        self.initGuess1Two.insert(0, 1)
-        self.initGuess1Two.grid(row=12, column=1)
-
-        self.initGuess2Two = tk.Entry(self.root)
-        self.initGuess2Two.insert(0, 0)
-        self.initGuess2Two.grid(row=13, column=1)
-
-        self.epsTwo = tk.Entry(self.root)
-        self.epsTwo.insert(0, 0.001)
-        self.epsTwo.grid(row=14, column=1)
-
-        tk.Button(self.root, text="GO", fg="red", command=self.runNrTwo).grid(
-            row=15
+        tk.Button(frame, text="GO", fg="red", command=self.runNrSingle).grid(
+            row=5, columnspan=2
         )
 
+        return frame
+
+    def nrTwo(self):
+        frame = tk.Frame(self.root)
+
+        tk.Label(
+            frame, text="Two Variable Method", font=("Helvetica", 15, "bold"),
+        ).grid(row=0, columnspan=2)
+
+        tk.Label(frame, text="Equation 1").grid(row=1)
+        tk.Label(frame, text="Equation 2").grid(row=2)
+        tk.Label(frame, text="Variable 1").grid(row=3)
+        tk.Label(frame, text="Variable 2").grid(row=4)
+        tk.Label(frame, text="Initial guess for variable 1").grid(row=5)
+        tk.Label(frame, text="Initial guess for variable 2").grid(row=6)
+        tk.Label(frame, text="\u03B5").grid(row=7)
+
+        self.eq1Two = tk.Entry(frame)
+        self.eq1Two.insert(0, "10*x*sin(y) + 0.5")
+        self.eq1Two.grid(row=1, column=1)
+
+        self.eq2Two = tk.Entry(frame)
+        self.eq2Two.insert(0, "10*x**2 - 10*x*cos(y) + 0.2")
+        self.eq2Two.grid(row=2, column=1)
+
+        self.var1Two = tk.Entry(frame)
+        self.var1Two.insert(0, "x")
+        self.var1Two.grid(row=3, column=1)
+
+        self.var2Two = tk.Entry(frame)
+        self.var2Two.insert(0, "y")
+        self.var2Two.grid(row=4, column=1)
+
+        self.initGuess1Two = tk.Entry(frame)
+        self.initGuess1Two.insert(0, 1)
+        self.initGuess1Two.grid(row=5, column=1)
+
+        self.initGuess2Two = tk.Entry(frame)
+        self.initGuess2Two.insert(0, 0)
+        self.initGuess2Two.grid(row=6, column=1)
+
+        self.epsTwo = tk.Entry(frame)
+        self.epsTwo.insert(0, 0.001)
+        self.epsTwo.grid(row=7, column=1)
+
+        tk.Button(frame, text="GO", fg="red", command=self.runNrTwo).grid(
+            row=8, columnspan=2
+        )
+
+        return frame
+
     def footer(self):
-        tk.Button(self.root, text="QUIT", fg="red", command=quit).grid(row=16)
+        frame = tk.Frame(self.root)
+
+        tk.Button(frame, text="QUIT", fg="red", command=quit).grid(row=16)
+
+        return frame
 
     def runNrSingle(self):
         # TODO: add epsilon
