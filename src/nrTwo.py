@@ -1,6 +1,6 @@
 import numpy as np
 import sympy as sym
-from src.printFrame import printFrame
+from src.printToDisplay import printFrame
 
 
 def newtonRaphsonTwoVariables(

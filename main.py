@@ -1,9 +1,9 @@
 import src.nrSingle as nrSingle
 import src.nrTwo as nrTwo
-from src.printFrame import *
+from src.printToDisplay import *
+from src.scrolledFrame import *
 
 import tkinter as tk
-from tkscrolledframe import ScrolledFrame
 
 
 class MyApp:
@@ -127,21 +127,13 @@ class MyApp:
 
         return frame
 
-    def createScrollFrame(self, parent, width=600, height=500):
-        sf = ScrolledFrame(parent, width=width, height=height)
-        sf.grid(row=0)
-        sf.bind_arrow_keys(self.root)
-        sf.bind_scroll_wheel(self.root)
-
-        frame = sf.display_widget(tk.Frame, width=width, height=height)
-
-        return frame
-
     def runNrSingle(self):
         singleWindow = tk.Toplevel(self.root)
 
         # Scroll frame
-        output = self.createScrollFrame(singleWindow)
+        frame = Tkscrolledframe(singleWindow, width=600, height=500)
+        frame.grid(row=0)
+        output = frame.getFrame()
         output.grid(padx=5)
         printFrame(
             output, "Starting Newton Raphson Method for a single variable"
@@ -165,6 +157,8 @@ class MyApp:
             float(self.epsSingle.get()),
         )
 
+        frame.update()
+
         # Close button
         close = tk.Frame(singleWindow)
         close.grid(row=1, pady=5)
@@ -176,7 +170,9 @@ class MyApp:
         singleWindow = tk.Toplevel(self.root)
 
         # Scroll frame
-        output = self.createScrollFrame(singleWindow)
+        frame = Tkscrolledframe(singleWindow, width=600, height=500)
+        frame.grid(row=0)
+        output = frame.getFrame()
         output.grid(padx=5)
         printFrame(output, "Starting Newton Raphson Method for two variables")
         printFrame(
@@ -194,13 +190,6 @@ class MyApp:
             ),
         )
 
-        # Close button
-        close = tk.Frame(singleWindow)
-        close.grid(row=1, pady=5)
-        tk.Button(
-            close, text="CLOSE", fg="black", command=singleWindow.destroy
-        ).grid(sticky=tk.W)
-
         nrTwo.newtonRaphsonTwoVariables(
             output,
             self.eq1Two.get(),
@@ -212,12 +201,23 @@ class MyApp:
             float(self.epsTwo.get()),
         )
 
+        frame.update()
+
+        # Close button
+        close = tk.Frame(singleWindow)
+        close.grid(row=1, pady=5)
+        tk.Button(
+            close, text="CLOSE", fg="black", command=singleWindow.destroy
+        ).grid(sticky=tk.W)
+
     def helpWindow(self):
         win = tk.Toplevel(self.root)
 
         # Scroll frame
-        main = self.createScrollFrame(win, height=700)
-        main.grid(padx=5)
+        frame = Tkscrolledframe(win, width=610, height=700)
+        frame.grid(row=0)
+        main = frame.getFrame()
+        main.grid()
 
         # Help for single variable
         tk.Label(
@@ -337,6 +337,8 @@ class MyApp:
         printExampleRow(
             examples, "./src/img/eg4.gif", "10*x**2 - 10*x*cos(y) + 0.2", row=4
         )
+
+        frame.update()
 
         # Close button
         close = tk.Frame(win)

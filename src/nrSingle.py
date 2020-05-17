@@ -1,5 +1,5 @@
 import sympy as sym
-from src.printFrame import printFrame
+from src.printToDisplay import printFrame
 
 
 def newtonRaphsonSingleVariable(frame, f, symbol, initVal, eps=0.0001):
