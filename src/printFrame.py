@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 
 
 def printFrame(frame, text):
+    print(text)
     tk.Label(
         frame, text=text, font=("Courier", 12), wraplength=600, justify=tk.LEFT
     ).grid(sticky=tk.W)
