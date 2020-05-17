@@ -2,6 +2,7 @@ import src.nrSingle as nrSingle
 import src.nrTwo as nrTwo
 
 import tkinter as tk
+from tkscrolledframe import ScrolledFrame
 
 
 class MyApp:
@@ -56,7 +57,7 @@ class MyApp:
         self.epsSingle.insert(0, 0.001)
         self.epsSingle.grid(row=4, column=1)
 
-        tk.Button(frame, text="GO", fg="black", command=self.runNrSingle).grid(
+        tk.Button(frame, text="GO", fg="blue", command=self.runNrSingle).grid(
             row=5, column=1, sticky=tk.W
         )
 
@@ -107,7 +108,7 @@ class MyApp:
         self.epsTwo.insert(0, 0.001)
         self.epsTwo.grid(row=7, column=1)
 
-        tk.Button(frame, text="GO", fg="black", command=self.runNrTwo,).grid(
+        tk.Button(frame, text="GO", fg="blue", command=self.runNrTwo,).grid(
             row=8, column=1, sticky=tk.W
         )
 
@@ -123,17 +124,34 @@ class MyApp:
     def runNrSingle(self):
         singleWindow = tk.Toplevel(self.root)
 
-        output = tk.Frame(singleWindow)
-        output.grid(row=0)
+        # Scroll frame
+        sf = ScrolledFrame(singleWindow, width=500, height=500)
+        sf.grid(row=0)
+        sf.bind_arrow_keys(self.root)
+        sf.bind_scroll_wheel(self.root)
+        output = sf.display_widget(tk.Frame)
         tk.Label(
-            output, text="Starting Newton Raphson Method for a single variable"
-        ).grid()
+            output,
+            text="Starting Newton Raphson Method for a single variable",
+            font=("Courier", 12),
+        ).grid(sticky=tk.W)
+        tk.Label(
+            output,
+            text="Solving {}=0 for {} with an initial guess of {} to an accuracy of {}".format(
+                self.eqSingle.get(),
+                self.varSingle.get(),
+                self.initGuessSingle.get(),
+                self.epsSingle.get(),
+            ),
+            font=("Courier", 12),
+        ).grid(sticky=tk.W)
 
+        # Close button
         close = tk.Frame(singleWindow)
         close.grid(row=1)
         tk.Button(
             close, text="CLOSE", fg="black", command=singleWindow.destroy
-        ).grid()
+        ).grid(sticky=tk.W)
 
         nrSingle.newtonRaphsonSingleVariable(
             self.eqSingle.get(),
