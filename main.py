@@ -1,6 +1,6 @@
 import src.nrSingle as nrSingle
 import src.nrTwo as nrTwo
-from src.printFrame import printFrame
+from src.printFrame import *
 
 import tkinter as tk
 from tkscrolledframe import ScrolledFrame
@@ -118,7 +118,12 @@ class MyApp:
     def footer(self):
         frame = tk.Frame(self.root)
 
-        tk.Button(frame, text="QUIT", fg="black", command=quit).grid(row=16)
+        tk.Button(frame, text="HELP", fg="grey", command=self.helpWindow).grid(
+            row=0, column=0, sticky=tk.W
+        )
+        tk.Button(frame, text="QUIT", fg="black", command=quit).grid(
+            row=0, column=1, sticky=tk.E
+        )
 
         return frame
 
@@ -206,6 +211,75 @@ class MyApp:
             float(self.initGuess2Two.get()),
             float(self.epsTwo.get()),
         )
+
+    def helpWindow(self):
+        win = tk.Toplevel(self.root)
+
+        # Scroll frame
+        main = self.createScrollFrame(win)
+        main.grid(padx=5)
+
+        # Help for single variable
+        tk.Label(
+            main,
+            text="Single Variable Method",
+            font=("Helvetica", 15, "bold"),
+        ).grid(row=0)
+        printHelp(
+            main,
+            'To use the NR method to solve an equation with a single unknown variable, use the "Single Variable Method" section of this application. You need to fill in the equation, the unknown variable, an initial guess for the unknown variable and an epsilon threshold value. An example is already pre-loaded for your reference.',
+            row=1,
+        )
+
+        # Help for two variables
+        tk.Label(
+            main, text="Two Variable Method", font=("Helvetica", 15, "bold"),
+        ).grid(row=2)
+        printHelp(
+            main,
+            'To use the NR method to solve a pair of simultaneous equations with two unknown variables, use the "Two Variable Method" section of this application. You need to fill in the two equations, the two unknown variables, an initial guess for each unknown variable and an epsilon threshold value. An example is already pre-loaded for your reference.',
+            row=3,
+        )
+
+        # Help for equation formatting
+        tk.Label(
+            main,
+            text="Formatting the Equations",
+            font=("Helvetica", 15, "bold"),
+        ).grid(row=4)
+        printHelp(
+            main,
+            "This section explains how to format your equations. The syntax for various functions is listed below.",
+            row=5,
+        )
+
+        # Table
+        table = tk.Frame(main)
+        table.grid(row=6)
+        printTableHeader(table, "Function", "Syntax", row=0)
+        printTableRow(table, "Addition", "+", row=1)
+        printTableRow(table, "Subtraction", "-", row=2)
+        printTableRow(table, "Multiplication", "*", row=3)
+        printTableRow(table, "Division", "/", row=4)
+        printTableRow(table, "Exponent / to the power of", "**", row=5)
+        printTableRow(table, "Square root", "sqrt(x)", row=6)
+        printTableRow(table, "Cubed root", "cbrt(x)", row=7)
+        printTableRow(table, "nth root", "root(x, n) OR x**(1/n)", row=8)
+        printTableRow(table, "Pi, \u03C0", "pi", row=9)
+        printTableRow(table, "Euler's number, e^x", "exp(x)", row=10)
+        printTableRow(table, "Natural log", "log(x)", row=11)
+        printTableRow(table, "Log with base b", "log(x, b)", row=12)
+        printTableRow(table, "Sine", "sin(x)", row=13)
+        printTableRow(table, "Cosine", "cos(x)", row=14)
+        printTableRow(table, "Tangent", "tan(x)", row=15)
+        printTableRow(table, "Inverse sine", "asin(x)", row=16)
+        printTableRow(table, "Inverse cosine", "acos(x)", row=17)
+        printTableRow(table, "Inverse tangent", "atan(x)", row=18)
+
+        # Close button
+        close = tk.Frame(win)
+        close.grid(row=1, pady=5)
+        tk.Button(close, text="CLOSE", fg="black", command=win.destroy).grid()
 
 
 app = MyApp()
