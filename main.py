@@ -157,13 +157,6 @@ class MyApp:
             ),
         )
 
-        # Close button
-        close = tk.Frame(singleWindow)
-        close.grid(row=1, pady=5)
-        tk.Button(
-            close, text="CLOSE", fg="black", command=singleWindow.destroy
-        ).grid(sticky=tk.W)
-
         nrSingle.newtonRaphsonSingleVariable(
             output,
             self.eqSingle.get(),
@@ -171,6 +164,13 @@ class MyApp:
             float(self.initGuessSingle.get()),
             float(self.epsSingle.get()),
         )
+
+        # Close button
+        close = tk.Frame(singleWindow)
+        close.grid(row=1, pady=5)
+        tk.Button(
+            close, text="CLOSE", fg="black", command=singleWindow.destroy
+        ).grid(sticky=tk.W)
 
     def runNrTwo(self):
         singleWindow = tk.Toplevel(self.root)
