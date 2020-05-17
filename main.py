@@ -1,5 +1,6 @@
 import src.nrSingle as nrSingle
 import src.nrTwo as nrTwo
+from src.printFrame import printFrame
 
 import tkinter as tk
 from tkscrolledframe import ScrolledFrame
@@ -121,30 +122,33 @@ class MyApp:
 
         return frame
 
+    def createScrollFrame(self, parent, width=500, height=500):
+        sf = ScrolledFrame(parent, width=width, height=height)
+        sf.grid(row=0)
+        sf.bind_arrow_keys(self.root)
+        sf.bind_scroll_wheel(self.root)
+
+        frame = sf.display_widget(tk.Frame)
+
+        return frame
+
     def runNrSingle(self):
         singleWindow = tk.Toplevel(self.root)
 
         # Scroll frame
-        sf = ScrolledFrame(singleWindow, width=500, height=500)
-        sf.grid(row=0)
-        sf.bind_arrow_keys(self.root)
-        sf.bind_scroll_wheel(self.root)
-        output = sf.display_widget(tk.Frame)
-        tk.Label(
+        output = self.createScrollFrame(singleWindow)
+        printFrame(
+            output, "Starting Newton Raphson Method for a single variable"
+        )
+        printFrame(
             output,
-            text="Starting Newton Raphson Method for a single variable",
-            font=("Courier", 12),
-        ).grid(sticky=tk.W)
-        tk.Label(
-            output,
-            text="Solving {}=0 for {} with an initial guess of {} to an accuracy of {}".format(
+            "Solving {}=0 for {} with an initial guess of {} to an accuracy of {}".format(
                 self.eqSingle.get(),
                 self.varSingle.get(),
                 self.initGuessSingle.get(),
                 self.epsSingle.get(),
             ),
-            font=("Courier", 12),
-        ).grid(sticky=tk.W)
+        )
 
         # Close button
         close = tk.Frame(singleWindow)
