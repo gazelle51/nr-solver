@@ -133,7 +133,7 @@ class MyApp:
         sf.bind_arrow_keys(self.root)
         sf.bind_scroll_wheel(self.root)
 
-        frame = sf.display_widget(tk.Frame)
+        frame = sf.display_widget(tk.Frame, width=width, height=height)
 
         return frame
 
@@ -216,7 +216,7 @@ class MyApp:
         win = tk.Toplevel(self.root)
 
         # Scroll frame
-        main = self.createScrollFrame(win)
+        main = self.createScrollFrame(win, height=700)
         main.grid(padx=5)
 
         # Help for single variable
@@ -256,25 +256,87 @@ class MyApp:
         # Table
         table = tk.Frame(main)
         table.grid(row=6)
-        printTableHeader(table, "Function", "Syntax", row=0)
-        printTableRow(table, "Addition", "+", row=1)
-        printTableRow(table, "Subtraction", "-", row=2)
-        printTableRow(table, "Multiplication", "*", row=3)
-        printTableRow(table, "Division", "/", row=4)
-        printTableRow(table, "Exponent / to the power of", "**", row=5)
-        printTableRow(table, "Square root", "sqrt(x)", row=6)
-        printTableRow(table, "Cubed root", "cbrt(x)", row=7)
-        printTableRow(table, "nth root", "root(x, n) OR x**(1/n)", row=8)
-        printTableRow(table, "Pi, \u03C0", "pi", row=9)
-        printTableRow(table, "Euler's number, e^x", "exp(x)", row=10)
-        printTableRow(table, "Natural log", "log(x)", row=11)
-        printTableRow(table, "Log with base b", "log(x, b)", row=12)
-        printTableRow(table, "Sine", "sin(x)", row=13)
-        printTableRow(table, "Cosine", "cos(x)", row=14)
-        printTableRow(table, "Tangent", "tan(x)", row=15)
-        printTableRow(table, "Inverse sine", "asin(x)", row=16)
-        printTableRow(table, "Inverse cosine", "acos(x)", row=17)
-        printTableRow(table, "Inverse tangent", "atan(x)", row=18)
+        printTableHeader(table, "Function", "Example", "Syntax", row=0)
+        printTableRow(
+            table, "Addition", "./src/img/plus.gif", "+", row=1,
+        )
+        printTableRow(table, "Subtraction", "./src/img/minus.gif", "-", row=2)
+        printTableRow(
+            table, "Multiplication", "./src/img/times.gif", "*", row=3
+        )
+        printTableRow(table, "Division", "./src/img/divide.gif", "/", row=4)
+        printTableRow(
+            table,
+            "Exponent / to the power of",
+            "./src/img/a_to_b.gif",
+            "a ** b",
+            row=5,
+        )
+        printTableRow(
+            table, "Square root", "./src/img/root_x.gif", "sqrt(x)", row=6
+        )
+        printTableRow(
+            table, "Cubed root", "./src/img/root_3_x.gif", "cbrt(x)", row=7
+        )
+        printTableRow(
+            table,
+            "nth root",
+            "./src/img/root_n_x.gif",
+            "root(x, n) OR x**(1/n)",
+            row=8,
+        )
+        printTableRow(table, "Pi, \u03C0", "./src/img/pi.gif", "pi", row=9)
+        printTableRow(
+            table, "Euler's number", "./src/img/e_x.gif", "exp(x)", row=10,
+        )
+        printTableRow(
+            table, "Natural log", "./src/img/log.gif", "log(x)", row=11
+        )
+        printTableRow(
+            table,
+            "Log with base b",
+            "./src/img/log_b.gif",
+            "log(x, b)",
+            row=12,
+        )
+        printTableRow(table, "Sine", "./src/img/sin.gif", "sin(x)", row=13)
+        printTableRow(table, "Cosine", "./src/img/cos.gif", "cos(x)", row=14)
+        printTableRow(table, "Tangent", "./src/img/tan.gif", "tan(x)", row=15)
+        printTableRow(
+            table, "Inverse sine", "./src/img/asin.gif", "asin(x)", row=16
+        )
+        printTableRow(
+            table, "Inverse cosine", "./src/img/acos.gif", "acos(x)", row=17
+        )
+        printTableRow(
+            table, "Inverse tangent", "./src/img/atan.gif", "atan(x)", row=18
+        )
+
+        # Examples
+        printHelp(
+            main,
+            "It it also useful to use brackets to make sure your function is formatted correctly. There are some examples below.",
+            row=7,
+        )
+        examples = tk.Frame(main)
+        examples.grid(row=8)
+
+        printExampleHeader(examples, "Function", "Input Syntax", row=0)
+        printExampleRow(
+            examples, "./src/img/eg1.gif", "(sin(x))**2 - exp(4/x)", row=1
+        )
+        printExampleRow(
+            examples,
+            "./src/img/eg2.gif",
+            "15*((x-4)/7) + (sin(5*x))**3",
+            row=2,
+        )
+        printExampleRow(
+            examples, "./src/img/eg3.gif", "10*x*sin(y) + 0.5", row=3
+        )
+        printExampleRow(
+            examples, "./src/img/eg4.gif", "10*x**2 - 10*x*cos(y) + 0.2", row=4
+        )
 
         # Close button
         close = tk.Frame(win)
