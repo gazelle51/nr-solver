@@ -1,14 +1,16 @@
 import numpy as np
 import sympy as sym
+from src.printFrame import printFrame
 
 
 def newtonRaphsonTwoVariables(
-    f, g, symbol1, symbol2, initVal1, initVal2, eps=0.0001
+    frame, f, g, symbol1, symbol2, initVal1, initVal2, eps=0.0001
 ):
     """Use the Newton Raphson method to find the solution to two simultaneous 
     equations with two variables.
     
     Args:
+        frame (tk.Frame): frame to print output in
         f (str): the first function to find the solution of
         g (str): the second function to find the solution of
         symbol1 (str): symbol for the first unknown variable in the function
@@ -65,20 +67,21 @@ def newtonRaphsonTwoVariables(
             ),
         )
 
-    print("\nStarting Newton Raphson Method for multiple variables")
-    print(
+    printFrame(
+        frame,
         "\nIteration |       {} (7dp) |       {} (7dp)".format(
             symbol1, symbol2
-        )
+        ),
     )
-    print("==========================================")
+    printFrame(frame, "==========================================")
 
     # Start looping
     while (np.abs(delta()) >= eps).any():
-        print(
+        printFrame(
+            frame,
             "    {:5d} | {: 13.7f} | {: 13.7f}".format(
                 i, xyVal[0][0], xyVal[1][0]
-            )
+            ),
         )
 
         # Apply correction to the solution
@@ -87,13 +90,17 @@ def newtonRaphsonTwoVariables(
         # Increment counter
         i = i + 1
 
-    print(
-        "    {:5d} | {: 13.7f} | {: 13.7f}".format(i, xyVal[0][0], xyVal[1][0])
+    printFrame(
+        frame,
+        "    {:5d} | {: 13.7f} | {: 13.7f}".format(
+            i, xyVal[0][0], xyVal[1][0]
+        ),
     )
-    print(
+    printFrame(
+        frame,
         "\nThe solution is {}={:.4f} {}={:.4f} after {} iterations".format(
             symbol1, xyVal[0][0], symbol2, xyVal[1][0], i
-        )
+        ),
     )
 
     return xyVal

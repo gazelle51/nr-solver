@@ -142,8 +142,9 @@ class MyApp:
         )
         printFrame(
             output,
-            "Solving {}=0 for {} with an initial guess of {} to an accuracy of {}".format(
+            "Solving {}=0 for {} with an initial guess of {}={} to an accuracy of {}".format(
                 self.eqSingle.get(),
+                self.varSingle.get(),
                 self.varSingle.get(),
                 self.initGuessSingle.get(),
                 self.epsSingle.get(),
@@ -158,6 +159,7 @@ class MyApp:
         ).grid(sticky=tk.W)
 
         nrSingle.newtonRaphsonSingleVariable(
+            output,
             self.eqSingle.get(),
             self.varSingle.get(),
             float(self.initGuessSingle.get()),
@@ -165,8 +167,35 @@ class MyApp:
         )
 
     def runNrTwo(self):
-        # TODO: add epsilon
+        singleWindow = tk.Toplevel(self.root)
+
+        # Scroll frame
+        output = self.createScrollFrame(singleWindow)
+        printFrame(output, "Starting Newton Raphson Method for two variables")
+        printFrame(
+            output,
+            "Solving {}=0 and {}=0 for {} and {} with an initial guess of {}={} and {}={} to an accuracy of {}".format(
+                self.eq1Two.get(),
+                self.eq2Two.get(),
+                self.var1Two.get(),
+                self.var2Two.get(),
+                self.var1Two.get(),
+                self.initGuess1Two.get(),
+                self.var2Two.get(),
+                self.initGuess2Two.get(),
+                self.epsTwo.get(),
+            ),
+        )
+
+        # Close button
+        close = tk.Frame(singleWindow)
+        close.grid(row=1)
+        tk.Button(
+            close, text="CLOSE", fg="black", command=singleWindow.destroy
+        ).grid(sticky=tk.W)
+
         nrTwo.newtonRaphsonTwoVariables(
+            output,
             self.eq1Two.get(),
             self.eq2Two.get(),
             self.var1Two.get(),
