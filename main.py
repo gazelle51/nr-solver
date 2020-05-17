@@ -122,7 +122,7 @@ class MyApp:
 
         return frame
 
-    def createScrollFrame(self, parent, width=500, height=500):
+    def createScrollFrame(self, parent, width=600, height=500):
         sf = ScrolledFrame(parent, width=width, height=height)
         sf.grid(row=0)
         sf.bind_arrow_keys(self.root)
@@ -137,6 +137,7 @@ class MyApp:
 
         # Scroll frame
         output = self.createScrollFrame(singleWindow)
+        output.grid(padx=5)
         printFrame(
             output, "Starting Newton Raphson Method for a single variable"
         )
@@ -153,7 +154,7 @@ class MyApp:
 
         # Close button
         close = tk.Frame(singleWindow)
-        close.grid(row=1)
+        close.grid(row=1, pady=5)
         tk.Button(
             close, text="CLOSE", fg="black", command=singleWindow.destroy
         ).grid(sticky=tk.W)
@@ -171,6 +172,7 @@ class MyApp:
 
         # Scroll frame
         output = self.createScrollFrame(singleWindow)
+        output.grid(padx=5)
         printFrame(output, "Starting Newton Raphson Method for two variables")
         printFrame(
             output,
@@ -189,7 +191,7 @@ class MyApp:
 
         # Close button
         close = tk.Frame(singleWindow)
-        close.grid(row=1)
+        close.grid(row=1, pady=5)
         tk.Button(
             close, text="CLOSE", fg="black", command=singleWindow.destroy
         ).grid(sticky=tk.W)
