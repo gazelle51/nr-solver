@@ -8,10 +8,10 @@ buildOptions = dict(
     packages=[],
     # includes=["tkinter"],
     excludes=[],
-    # include_files=[
-    #     ("./src/icon.png", "src/icon.png"),
-    #     ("./src/img/", "src/img/"),
-    # ],
+    include_files=[
+        ("./src/icon.png", "src/icon.png"),
+        ("./src/img/", "src/img/"),
+    ],
     replace_paths=[("*", "")],
 )
 
