@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 
 from PIL import Image, ImageTk
@@ -39,7 +40,7 @@ def printTableRow(frame, col1, col2, col3, row):
         sticky=tk.E, column=0, row=row
     )
 
-    img = Image.open(col2)
+    img = Image.open(os.path.join(os.getcwd(), "src", "img", col2))
     ph = ImageTk.PhotoImage(img)
     label = tk.Label(frame, image=ph,)
     label.grid(column=1, row=row)
@@ -61,7 +62,7 @@ def printExampleHeader(frame, col1, col2, row):
 
 
 def printExampleRow(frame, col1, col2, row):
-    img = Image.open(col1)
+    img = Image.open(os.path.join(os.getcwd(), "src", "img", col1))
     ph = ImageTk.PhotoImage(img)
     label = tk.Label(frame, image=ph,)
     label.grid(

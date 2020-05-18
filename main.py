@@ -3,6 +3,7 @@ import src.nrTwo as nrTwo
 from src.printToDisplay import *
 from src.scrolledFrame import *
 
+import os
 import tkinter as tk
 
 
@@ -12,7 +13,8 @@ class MyApp:
 
         self.root = tk.Tk()
         self.root.title(self.TITLE)
-        self.root.iconphoto(False, tk.PhotoImage(file="./src/icon.png"))
+        icon = os.path.join(os.getcwd(), "src", "icon.png")
+        self.root.iconphoto(False, tk.PhotoImage(file=icon))
 
         self.header().grid(row=0, padx=10)
         self.nrSingle().grid(row=1, padx=10, pady=5)
@@ -265,59 +267,33 @@ class MyApp:
         table.grid(row=7)
         printTableHeader(table, "Function", "Example", "Syntax", row=0)
         printTableRow(
-            table, "Addition", "./src/img/plus.gif", "+", row=1,
+            table, "Addition", "plus.gif", "+", row=1,
         )
-        printTableRow(table, "Subtraction", "./src/img/minus.gif", "-", row=2)
+        printTableRow(table, "Subtraction", "minus.gif", "-", row=2)
+        printTableRow(table, "Multiplication", "times.gif", "*", row=3)
+        printTableRow(table, "Division", "divide.gif", "/", row=4)
         printTableRow(
-            table, "Multiplication", "./src/img/times.gif", "*", row=3
+            table, "Exponent / to the power of", "a_to_b.gif", "a ** b", row=5,
         )
-        printTableRow(table, "Division", "./src/img/divide.gif", "/", row=4)
+        printTableRow(table, "Square root", "root_x.gif", "sqrt(x)", row=6)
+        printTableRow(table, "Cubed root", "root_3_x.gif", "cbrt(x)", row=7)
         printTableRow(
-            table,
-            "Exponent / to the power of",
-            "./src/img/a_to_b.gif",
-            "a ** b",
-            row=5,
+            table, "nth root", "root_n_x.gif", "root(x, n) OR x**(1/n)", row=8,
         )
+        printTableRow(table, "Pi, \u03C0", "pi.gif", "pi", row=9)
         printTableRow(
-            table, "Square root", "./src/img/root_x.gif", "sqrt(x)", row=6
+            table, "Euler's number", "e_x.gif", "exp(x)", row=10,
         )
+        printTableRow(table, "Natural log", "log.gif", "log(x)", row=11)
         printTableRow(
-            table, "Cubed root", "./src/img/root_3_x.gif", "cbrt(x)", row=7
+            table, "Log with base b", "log_b.gif", "log(x, b)", row=12,
         )
-        printTableRow(
-            table,
-            "nth root",
-            "./src/img/root_n_x.gif",
-            "root(x, n) OR x**(1/n)",
-            row=8,
-        )
-        printTableRow(table, "Pi, \u03C0", "./src/img/pi.gif", "pi", row=9)
-        printTableRow(
-            table, "Euler's number", "./src/img/e_x.gif", "exp(x)", row=10,
-        )
-        printTableRow(
-            table, "Natural log", "./src/img/log.gif", "log(x)", row=11
-        )
-        printTableRow(
-            table,
-            "Log with base b",
-            "./src/img/log_b.gif",
-            "log(x, b)",
-            row=12,
-        )
-        printTableRow(table, "Sine", "./src/img/sin.gif", "sin(x)", row=13)
-        printTableRow(table, "Cosine", "./src/img/cos.gif", "cos(x)", row=14)
-        printTableRow(table, "Tangent", "./src/img/tan.gif", "tan(x)", row=15)
-        printTableRow(
-            table, "Inverse sine", "./src/img/asin.gif", "asin(x)", row=16
-        )
-        printTableRow(
-            table, "Inverse cosine", "./src/img/acos.gif", "acos(x)", row=17
-        )
-        printTableRow(
-            table, "Inverse tangent", "./src/img/atan.gif", "atan(x)", row=18
-        )
+        printTableRow(table, "Sine", "sin.gif", "sin(x)", row=13)
+        printTableRow(table, "Cosine", "cos.gif", "cos(x)", row=14)
+        printTableRow(table, "Tangent", "tan.gif", "tan(x)", row=15)
+        printTableRow(table, "Inverse sine", "asin.gif", "asin(x)", row=16)
+        printTableRow(table, "Inverse cosine", "acos.gif", "acos(x)", row=17)
+        printTableRow(table, "Inverse tangent", "atan.gif", "atan(x)", row=18)
         frame.update()
 
         # Examples
@@ -330,20 +306,13 @@ class MyApp:
         examples.grid(row=9)
 
         printExampleHeader(examples, "Function", "Input Syntax", row=0)
+        printExampleRow(examples, "eg1.gif", "(sin(x))**2 - exp(4/x)", row=1)
         printExampleRow(
-            examples, "./src/img/eg1.gif", "(sin(x))**2 - exp(4/x)", row=1
+            examples, "eg2.gif", "15*((x-4)/7) + (sin(5*x))**3", row=2,
         )
+        printExampleRow(examples, "eg3.gif", "10*x*sin(y) + 0.5", row=3)
         printExampleRow(
-            examples,
-            "./src/img/eg2.gif",
-            "15*((x-4)/7) + (sin(5*x))**3",
-            row=2,
-        )
-        printExampleRow(
-            examples, "./src/img/eg3.gif", "10*x*sin(y) + 0.5", row=3
-        )
-        printExampleRow(
-            examples, "./src/img/eg4.gif", "10*x**2 - 10*x*cos(y) + 0.2", row=4
+            examples, "eg4.gif", "10*x**2 - 10*x*cos(y) + 0.2", row=4
         )
         frame.update()
 
