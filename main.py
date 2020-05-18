@@ -323,7 +323,7 @@ class MyApp:
         # Examples
         printHelp(
             main,
-            "It it also useful to use brackets to make sure your function is formatted correctly. There are some examples below.",
+            "\nIt it also useful to use brackets to make sure your function is formatted correctly. There are some examples below.",
             row=8,
         )
         examples = tk.Frame(main)
@@ -345,7 +345,6 @@ class MyApp:
         printExampleRow(
             examples, "./src/img/eg4.gif", "10*x**2 - 10*x*cos(y) + 0.2", row=4
         )
-
         frame.update()
 
         # Close button
