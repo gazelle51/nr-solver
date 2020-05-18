@@ -219,43 +219,50 @@ class MyApp:
         main = frame.getFrame()
         main.grid()
 
+        tk.Label(main, text="Help", font=("Helvetica", 18, "bold"),).grid(
+            row=0
+        )
+
         # Help for single variable
         tk.Label(
             main,
             text="Single Variable Method",
             font=("Helvetica", 15, "bold"),
-        ).grid(row=0)
+        ).grid(row=1, pady=(15, 0))
         printHelp(
             main,
             'To use the NR method to solve an equation with a single unknown variable, use the "Single Variable Method" section of this application. You need to fill in the equation, the unknown variable, an initial guess for the unknown variable and an epsilon threshold value. An example is already pre-loaded for your reference.',
-            row=1,
+            row=2,
         )
+        frame.update()
 
         # Help for two variables
         tk.Label(
             main, text="Two Variable Method", font=("Helvetica", 15, "bold"),
-        ).grid(row=2)
+        ).grid(row=3, pady=(15, 0))
         printHelp(
             main,
             'To use the NR method to solve a pair of simultaneous equations with two unknown variables, use the "Two Variable Method" section of this application. You need to fill in the two equations, the two unknown variables, an initial guess for each unknown variable and an epsilon threshold value. An example is already pre-loaded for your reference.',
-            row=3,
+            row=4,
         )
+        frame.update()
 
         # Help for equation formatting
         tk.Label(
             main,
             text="Formatting the Equations",
             font=("Helvetica", 15, "bold"),
-        ).grid(row=4)
+        ).grid(row=5, pady=(15, 0))
         printHelp(
             main,
             "This section explains how to format your equations. The syntax for various functions is listed below.",
-            row=5,
+            row=6,
         )
+        frame.update()
 
         # Table
         table = tk.Frame(main)
-        table.grid(row=6)
+        table.grid(row=7)
         printTableHeader(table, "Function", "Example", "Syntax", row=0)
         printTableRow(
             table, "Addition", "./src/img/plus.gif", "+", row=1,
@@ -311,15 +318,16 @@ class MyApp:
         printTableRow(
             table, "Inverse tangent", "./src/img/atan.gif", "atan(x)", row=18
         )
+        frame.update()
 
         # Examples
         printHelp(
             main,
             "It it also useful to use brackets to make sure your function is formatted correctly. There are some examples below.",
-            row=7,
+            row=8,
         )
         examples = tk.Frame(main)
-        examples.grid(row=8)
+        examples.grid(row=9)
 
         printExampleHeader(examples, "Function", "Input Syntax", row=0)
         printExampleRow(
