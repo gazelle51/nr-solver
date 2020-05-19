@@ -1,18 +1,17 @@
 from cx_Freeze import setup, Executable
 import os.path
+import sys
 
 
 # Dependencies are automatically detected, but it might need
 # fine tuning.
 buildOptions = dict(
     packages=[],
-    # includes=["tkinter"],
+    includes=["numpy", "os", "sympy", "sys", "tkinter"],
     excludes=[],
-    include_files=[
-        ("./src/icon.png", "src/icon.png"),
-        ("./src/img/", "src/img/"),
-    ],
+    include_files=["src/",],
     replace_paths=[("*", "")],
+    path=sys.path + ["src"],
 )
 
 import sys

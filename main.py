@@ -4,7 +4,12 @@ from src.printToDisplay import *
 from src.scrolledFrame import *
 
 import os
+import sys
 import tkinter as tk
+
+
+def quit():
+    sys.exit()
 
 
 class MyApp:
@@ -15,6 +20,7 @@ class MyApp:
         self.root.title(self.TITLE)
         icon = os.path.join(os.getcwd(), "src", "icon.png")
         self.root.iconphoto(False, tk.PhotoImage(file=icon))
+        self.root.grid()
 
         self.header().grid(row=0, padx=10)
         self.nrSingle().grid(row=1, padx=10, pady=5)
