@@ -6,7 +6,7 @@ click==7.1.2
 isort==4.3.21
 lazy-object-proxy==1.4.3
 mccabe==0.6.1
-mpmath==1.1.0
+mpmath==1.3.0
 numpy==1.22.4
 pathspec==0.8.0
 pylint==2.5.2
